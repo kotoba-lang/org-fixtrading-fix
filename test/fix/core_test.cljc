@@ -1,5 +1,5 @@
 (ns fix.core-test
-  (:require [clojure.test :refer [deftest testing is]]
+  (:require [kotoba.lang.text] [clojure.test :refer [deftest testing is]]
             [fix.bytes :as b]
             [fix.checksum :as cksum]
             [fix.codec :as codec]
@@ -105,20 +105,20 @@
 ;; ---------------------------------------------------------------------
 
 (deftest checksum-mismatch-is-detected
-  (let [corrupted (clojure.string/replace logon-wire "10=062" "10=063")
+  (let [corrupted (kotoba.lang.text/replace logon-wire "10=062" "10=063")
         [status reason] (message/decode dict/fix42 (wire->bytes corrupted))]
     (is (= :error status))
     (is (= :fix/checksum-mismatch reason))))
 
 (deftest checksum-must-be-exactly-three-digits
-  (let [corrupted (clojure.string/replace logon-wire "10=062" "10=62")
+  (let [corrupted (kotoba.lang.text/replace logon-wire "10=062" "10=62")
         [status reason] (message/decode dict/fix42 (wire->bytes corrupted))]
     (is (= :error status))
     (is (= :fix/checksum-mismatch reason)
         "an unpadded checksum is a wire-format violation, not a value this codec should accept even though 62 == 062 numerically")))
 
 (deftest body-length-mismatch-is-detected
-  (let [corrupted (clojure.string/replace logon-wire "9=65" "9=66")
+  (let [corrupted (kotoba.lang.text/replace logon-wire "9=65" "9=66")
         [status reason] (message/decode dict/fix42 (wire->bytes corrupted))]
     (is (= :error status))
     (is (= :fix/body-length-mismatch reason))))
