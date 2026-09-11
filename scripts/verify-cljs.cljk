@@ -1,4 +1,4 @@
-#!/usr/bin/env nbb
+#!/usr/bin/env kbb
 ;; Run the suite on the ClojureScript side.
 ;;
 ;; Not a formality — see fix.bytes' docstring on `char-code`. FIX's
@@ -11,7 +11,7 @@
 ;; field is still a valid-looking three-digit number; it is simply wrong,
 ;; and nothing about running only on the JVM would ever reveal that.
 ;;
-;;   nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljk
+;;   kbb --backend sci --classpath "$(kbb -A:cljs -Spath)" scripts/verify-cljs.cljk
 (ns verify-cljs
   (:require [clojure.test :as t]
             [fix.core-test]))
