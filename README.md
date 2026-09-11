@@ -153,10 +153,10 @@ Read the two facades only to see what not to produce.
 
 ```sh
 clojure -M:test                                                        # JVM
-nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljs   # ClojureScript
+nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljk   # ClojureScript
 ```
 
-Both run the same 19 deftests / 436 assertions in `test/fix/core_test.cljc`.
+Both run the same 19 deftests / 436 assertions in `test/fix/core_test.cljk`.
 
 **Test vectors are constructed, not published spec vectors** — FIX.5.0 SP2
 Volume 1 documents the BodyLength/CheckSum *algorithm* precisely (confirmed
@@ -205,5 +205,5 @@ an all-zero body would still print as a plausible three-digit number; only
 running the ClojureScript suite (not just the JVM one) would ever reveal it
 was wrong. `char-code`/`byte->char` in `fix.bytes` use `.charCodeAt`/
 `String.fromCharCode` under ClojureScript specifically to not be that idiom,
-and `test/fix/core_test.cljc`'s `bytes-round-trip-all-256-values` test
+and `test/fix/core_test.cljk`'s `bytes-round-trip-all-256-values` test
 exercises every byte value 0..255 on both runtimes to prove it.
